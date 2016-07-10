@@ -10,7 +10,7 @@ import sys
 class getDay(object):
 	def holiday_list(self,start,end):
 		start_date = datetime.date(start,1,1)
-		end_date = datetime.date(end,12,31)
+		end_date = datetime.date(end,1,1)
 		# 日数の計算
 		date_count = end_date - start_date
 		self.__dict__["count"] = date_count
@@ -50,7 +50,7 @@ class getDay(object):
 		# 土日のリスト
 		self.__dict__["sun_stu"] = li_sun_stu
 		# 平日のリスト
-		self.__dict__["weekday"] = set(a.all) - set(a.all_holiday)
+		self.__dict__["weekday"] = set(li) - set(li_all_holiday)
 
 if __name__ == "__main__":
 	a=getDay()
@@ -60,3 +60,14 @@ if __name__ == "__main__":
 	print a.holiday
 	print a.sun_stu
 	print a.weekday
+	
+	
+from get_day import getDay
+s=getDay()
+Y=2006
+data=[]
+for i in range(1,12):
+	s.holiday_list(Y,Y+1)
+	cnt_day = len(s.weekday)
+	data.append(cnt_day)
+	Y+=1
