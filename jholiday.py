@@ -6,51 +6,59 @@ import sys
 
 MONDAY, TUESDAY, WEDNESDAY = 0, 1, 2
 
+
 def _vernal_equinox(y):
-    """整数で年を与えると、その年の春分の日が3月の何日であるかを返す
-"""
+    """整数で年を与えると、その年の春分の日が3月の何日であるかを返す."""
     if y <= 1947:
         d = 0
     elif y <= 1979:
-        d = math.floor(20.8357  +  0.242194 * (y - 1980)  -  math.floor((y - 1980) / 4))
+        d = math.floor(20.8357 + 0.242194 * (y - 1980) -
+                       math.floor((y - 1980) / 4))
     elif y <= 2099:
-        d = math.floor(20.8431  +  0.242194 * (y - 1980)  -  math.floor((y - 1980) / 4))
+        d = math.floor(20.8431 + 0.242194 * (y - 1980) -
+                       math.floor((y - 1980) / 4))
     elif y <= 2150:
-        d = math.floor(21.8510  +  0.242194 * (y - 1980)  -  math.floor((y - 1980) / 4))
+        d = math.floor(21.8510 + 0.242194 * (y - 1980) -
+                       math.floor((y - 1980) / 4))
     else:
         d = 99
 
     return d
+
 
 def _autumn_equinox(y):
-    """整数で年を与えると、その年の秋分の日が9月の何日であるかを返す
-"""
+    """整数で年を与えると、その年の秋分の日が9月の何日であるかを返す."""
     if y <= 1947:
         d = 0
     elif y <= 1979:
-        d = math.floor(23.2588  +  0.242194 * (y - 1980)  -  math.floor((y - 1980) / 4))
+        d = math.floor(23.2588 + 0.242194 * (y - 1980) -
+                       math.floor((y - 1980) / 4))
     elif y <= 2099:
-        d = math.floor(23.2488  +  0.242194 * (y - 1980)  -  math.floor((y - 1980) / 4))
+        d = math.floor(23.2488 + 0.242194 * (y - 1980) -
+                       math.floor((y - 1980) / 4))
     elif y <= 2150:
-        d = math.floor(24.2488  +  0.242194 * (y - 1980)  -  math.floor((y - 1980) / 4))
+        d = math.floor(24.2488 + 0.242194 * (y - 1980) -
+                       math.floor((y - 1980) / 4))
     else:
         d = 99
 
     return d
 
-def holiday_name(year = None, month = None, day = None, date = None):
+
+def holiday_name(year=None, month=None, day=None, date=None):
     """holiday_name() の呼び出し方法は2通りあります。
 
     1つ目の方法は、3つの引数 year, month, day に整数を渡す方法です。
     もうひとつの方法は前述のキーワード引数 date に datetime.date のオブジェクトを渡す方法です。
     この場合は year, month, day を渡す必要はなく、また、渡したとしても無視されます。
 
-    holiday_name() は、その日が祝日であれば 
+    holiday_name() は、その日が祝日であれば
         Python 2.x 系以前の場合には Unicode 文字列で
         Python 3.x 系以降の場合には文字列で
     祝日名を返します。
     指定した日が祝日でなければ、 Python のバージョンによらず None を返します。
-"""
+
+    """
 
     if date == None:
         date = datetime.date(year, month, day)
@@ -59,7 +67,6 @@ def holiday_name(year = None, month = None, day = None, date = None):
         return None
     else:
         name = None
-
 
     # 1月
     if date.month == 1:
@@ -157,7 +164,7 @@ def holiday_name(year = None, month = None, day = None, date = None):
 
     # 振替休日
     if not name and date.weekday() == MONDAY:
-        prev = date + datetime.timedelta(days = -1)
+        prev = date + datetime.timedelta(days=-1)
         if holiday_name(prev.year, prev.month, prev.day):
             name = '振替休日'
 
@@ -172,4 +179,3 @@ def holiday_name(year = None, month = None, day = None, date = None):
 //_/ CopyRight(C) K.Tsunoda(AddinBox) 2001 All Rights Reserved.
 //_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
 """
-
